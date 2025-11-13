@@ -4,7 +4,7 @@ set -e
 
 # === CONFIG ===
 CONTAINER="namenode"
-LOCAL_WC_DIR="./wordcount"
+LOCAL_WC_DIR="./"
 REMOTE_WC_DIR="/root/wordcount"
 INPUT_FILE="./wordcount/file.txt"
 HDFS_INPUT="/data"

@@ -28,9 +28,12 @@ public class WCDriver extends Configured implements Tool {
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        
+
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+        FileSystem.get(conf).delete(new Path(args[1]), true);
+        
         return job.waitForCompletion(true) ? 0 : 1;
     }
 
