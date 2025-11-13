@@ -1,5 +1,6 @@
-package wordcount;
+package src.wordcount;
 
+import src.wordcount.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;

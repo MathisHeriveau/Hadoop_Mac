@@ -283,3 +283,40 @@ Vous avez :
 Vous avez entièrement validé le TP Hadoop WordCount.
 
 Vous pouvez maintenant passer tranquillement au TP2 ou Spark 😎🔥
+
+---
+
+# 🤖 Script d'automatisation : `compile_and_run.sh`
+
+Un script `compile_and_run.sh` est fourni pour automatiser toutes les étapes décrites ci-dessus (compilation, création du JAR, exécution du job Hadoop).
+
+## Utilisation
+
+Exécutez simplement le script depuis votre terminal :
+
+```bash
+./compile_and_run.sh [options] [fichier_entree]
+```
+
+### Arguments Positionnels
+
+*   `fichier_entree`: Chemin vers le fichier d'entrée local.
+    *   **Défaut** : `./src/wordcount/file.txt`
+
+### Options
+
+*   `-container=<nom>`: Nom du conteneur Docker où exécuter les commandes.
+    *   **Défaut** : `namenode`
+*   `-jarName=<nom>`: Nom du fichier `.jar` à créer.
+    *   **Défaut** : `wc.jar`
+*   `-mainClass=<classe>`: Classe Java principale à exécuter.
+    *   **Défaut** : `src.wordcountenseignant.WCDriver`
+*   `-h, --help`: Affiche le message d'aide.
+
+## Exemple
+
+Pour lancer le WordCount sur un fichier différent avec la classe enseignante :
+
+```bash
+./compile_and_run.sh -mainClass=src.wordcountenseignant.WCDriver ./mon_fichier.txt
+```

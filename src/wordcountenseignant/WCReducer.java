@@ -1,4 +1,4 @@
-package wordcount.enseignant;
+package src.wordcountenseignant;
 
 import java.io.IOException;
 import java.util.Iterator;

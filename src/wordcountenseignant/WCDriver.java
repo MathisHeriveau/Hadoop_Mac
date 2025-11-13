@@ -1,4 +1,4 @@
-package wordcount;
+package src.wordcountenseignant;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -9,8 +9,16 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.util.Tool;
+import src.wordcountenseignant.*;
+
+import org.apache.hadoop.util.ToolRunner;
 
 public class WCDriver extends Configured implements Tool {
+
+    public static void main(String[] args) throws Exception {
+        int exitCode = ToolRunner.run(new WCDriver(), args);
+        System.exit(exitCode);
+    }
 
     @Override
     public int run(String[] args) throws Exception {
