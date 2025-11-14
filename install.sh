@@ -42,11 +42,4 @@ docker exec -it hadoop-dev bash -c "
 
 echo "✔️ Java installé"
 
-# ================================
-# 4) Copier WordCount vers Namenode
-# ================================
-echo "📁 Copie du dossier wordcount dans le namenode..."
 
-docker cp wordcount namenode:/root/
-
-echo "✔️ Dossier transféré"
