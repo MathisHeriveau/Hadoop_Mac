@@ -73,6 +73,7 @@ Exemple pour changer la classe main + fichier :
 | `-container=<nom>` | Conteneur Hadoop | namenode |
 | `-jarName=<nom>` | Nom du JAR généré | wc.jar |
 | `-mainClass=<classe>` | Classe Java principale | src.wordcountenseignant.WCDriver |
+| `-head=<n>` | Afficher seulement les n premières lignes du résultat | (tout afficher) |
 | `input_file` | Fichier local à envoyer dans HDFS | `./src/wordcount/file.txt` |
 
 Afficher l’aide :

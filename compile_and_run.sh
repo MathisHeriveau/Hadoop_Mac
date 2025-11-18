@@ -14,6 +14,8 @@ MAIN_CLASS="src.wordcountenseignant.WCDriver"
 REMOTE_SRC_DIR="/root/src"
 HDFS_INPUT="/data"
 HDFS_OUTPUT="/output"
+HEAD_COUNT=""
+
 
 # --- Functions ---
 usage() {
@@ -28,6 +30,7 @@ usage() {
     echo "  -container=<name>  Docker container name. (Default: $CONTAINER)"
     echo "  -jarName=<name>    Name of the .jar file to create. (Default: $JAR_NAME)"
     echo "  -mainClass=<class> Java main class to run. (Default: $MAIN_CLASS)"
+    echo "  -head=<n>          Show only the first n lines of the output."
     echo "  -h, --help         Show this help message."
     exit 1
 }
@@ -49,6 +52,10 @@ while [[ "$#" -gt 0 ]]; do
         ;;
         -mainClass=*)
         MAIN_CLASS="${1#*=}"
+        shift
+        ;;
+        -head=*)
+        HEAD_COUNT="${1#*=}"
         shift
         ;;
         -h|--help)
@@ -133,6 +140,10 @@ docker exec -it $CONTAINER bash -c "
 
 # 7) Lecture du résultat
 echo "📊 Résultat final :"
-docker exec -it $CONTAINER hdfs dfs -cat $HDFS_OUTPUT/part-r-00000
+if [ -z "$HEAD_COUNT" ]; then
+    docker exec -it $CONTAINER hdfs dfs -cat $HDFS_OUTPUT/part-r-00000
+else
+    docker exec -it $CONTAINER hdfs dfs -cat $HDFS_OUTPUT/part-r-00000 | head -n $HEAD_COUNT
+fi
 
 echo "✅ FINI !"
