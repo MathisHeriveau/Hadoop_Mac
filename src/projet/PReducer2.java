@@ -16,25 +16,24 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-
-public class MagasinMapper extends Mapper<LongWritable, Text, Text, Text> {
-    private Text outKey = new Text();
-    private Text outValue = new Text();
+public class PReducer2 extends Reducer<Text, Text, Text, Text> {
+    private Text outValue = new Text("OK");
 
     @Override
-    protected void map(LongWritable key, Text value, Context context)
+    protected void reduce(Text key, Iterable<Text> values, Context context)
             throws IOException, InterruptedException {
-        String line = value.toString().trim();
-        if (line.isEmpty()) return;
 
-        String[] parts = line.split(";", -1);
-        if (parts.length < 2) return;
+        boolean hasMoules = false;
+        boolean hasBulots = false;
 
-        String magNum = parts[0];
-        String magNom = parts[1];
+        for (Text t : values) {
+            String lib = t.toString().toLowerCase();
+            if (lib.contains("moule")) hasMoules = true;
+            if (lib.contains("bulot")) hasBulots = true;
+        }
 
-        outKey.set(magNum);
-        outValue.set("M:" + magNom);
-        context.write(outKey, outValue);
+        if (hasMoules && hasBulots) {
+            context.write(key, outValue);
+        }
     }
 }

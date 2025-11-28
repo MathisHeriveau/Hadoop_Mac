@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class CommandeMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class PMapper4 extends Mapper<LongWritable, Text, Text, Text> {
     @Override
     public void map(LongWritable key, Text value, Context ctx) throws IOException, InterruptedException {
         String[] p = value.toString().split(";");

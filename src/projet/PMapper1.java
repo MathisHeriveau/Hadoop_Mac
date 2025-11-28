@@ -16,24 +16,24 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class MoulesBulotsReducer extends Reducer<Text, Text, Text, Text> {
-    private Text outValue = new Text("OK");
+public class PMapper1 extends Mapper<LongWritable, Text, Text, Text> {
+    private Text outKey = new Text();
+    private Text outValue = new Text();
 
     @Override
-    protected void reduce(Text key, Iterable<Text> values, Context context)
+    protected void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
+        String line = value.toString().trim();
+        if (line.isEmpty()) return;
 
-        boolean hasMoules = false;
-        boolean hasBulots = false;
+        String[] parts = line.split(";", -1);
+        if (parts.length < 2) return;
 
-        for (Text t : values) {
-            String lib = t.toString().toLowerCase();
-            if (lib.contains("moule")) hasMoules = true;
-            if (lib.contains("bulot")) hasBulots = true;
-        }
+        String prodNum = parts[0];
+        String prodLib = parts[1];
 
-        if (hasMoules && hasBulots) {
-            context.write(key, outValue);
-        }
+        outKey.set(prodNum);
+        outValue.set("P:" + prodLib);
+        context.write(outKey, outValue);
     }
 }

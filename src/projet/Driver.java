@@ -38,10 +38,10 @@ public class Driver {
         Job job1 = Job.getInstance(conf, "Job1_Join_Produit_Concerner");
         job1.setJarByClass(Driver.class);
 
-        MultipleInputs.addInputPath(job1, produitPath, TextInputFormat.class, ProduitMapper.class);
-        MultipleInputs.addInputPath(job1, concernerPath, TextInputFormat.class, ConcernerMapper.class);
+        MultipleInputs.addInputPath(job1, produitPath, TextInputFormat.class, PMapper1.class);
+        MultipleInputs.addInputPath(job1, concernerPath, TextInputFormat.class, PMapper2.class);
 
-        job1.setReducerClass(JoinProdConcernerReducer.class);
+        job1.setReducerClass(PReducer1.class);
         job1.setOutputKeyClass(Text.class);
         job1.setOutputValueClass(Text.class);
 
@@ -54,8 +54,8 @@ public class Driver {
         Job job2 = Job.getInstance(conf, "Job2_Filter_Moules_Bulots");
         job2.setJarByClass(Driver.class);
 
-        job2.setMapperClass(IdentityComProdMapper.class);
-        job2.setReducerClass(MoulesBulotsReducer.class);
+        job2.setMapperClass(PMapper3.class);
+        job2.setReducerClass(PReducer2.class);
 
         job2.setOutputKeyClass(Text.class);
         job2.setOutputValueClass(Text.class);
@@ -71,14 +71,14 @@ public class Driver {
         job3.setJarByClass(Driver.class);
 
 
-        MultipleInputs.addInputPath(job3, commandePath, TextInputFormat.class, CommandeMapper.class);
+        MultipleInputs.addInputPath(job3, commandePath, TextInputFormat.class, PMapper4.class);
 
         job3.addCacheFile(magasinPath.toUri());
 
 
-        MultipleInputs.addInputPath(job3, job2Out, TextInputFormat.class, ValidComMapper.class);
+        MultipleInputs.addInputPath(job3, job2Out, TextInputFormat.class, PMapper5.class);
 
-        job3.setReducerClass(JoinCommandeMagasinReducer.class);
+        job3.setReducerClass(PReducer3.class);
         job3.setOutputKeyClass(Text.class);
         job3.setOutputValueClass(Text.class);
 

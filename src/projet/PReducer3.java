@@ -20,7 +20,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 
 
-public class JoinCommandeMagasinReducer extends Reducer<Text, Text, Text, Text> {
+public class PReducer3 extends Reducer<Text, Text, Text, Text> {
 
     private HashMap<String, String> magasinMap = new HashMap<>();
 

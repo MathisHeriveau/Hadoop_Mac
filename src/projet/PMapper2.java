@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class ConcernerMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class PMapper2 extends Mapper<LongWritable, Text, Text, Text> {
     private Text outKey = new Text();
     private Text outValue = new Text();
 

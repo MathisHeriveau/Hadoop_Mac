@@ -17,7 +17,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
-public class JoinProdConcernerReducer extends Reducer<Text, Text, Text, Text> {
+public class PReducer1 extends Reducer<Text, Text, Text, Text> {
     private Text outKey = new Text();
     private Text outValue = new Text();
 

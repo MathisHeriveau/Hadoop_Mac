@@ -16,7 +16,7 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class ProduitMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class PMapper3 extends Mapper<LongWritable, Text, Text, Text> {
     private Text outKey = new Text();
     private Text outValue = new Text();
 
@@ -26,14 +26,14 @@ public class ProduitMapper extends Mapper<LongWritable, Text, Text, Text> {
         String line = value.toString().trim();
         if (line.isEmpty()) return;
 
-        String[] parts = line.split(";", -1);
+        String[] parts = line.split("\t", 2);
         if (parts.length < 2) return;
 
-        String prodNum = parts[0];
+        String comNum = parts[0];
         String prodLib = parts[1];
 
-        outKey.set(prodNum);
-        outValue.set("P:" + prodLib);
+        outKey.set(comNum);
+        outValue.set(prodLib);
         context.write(outKey, outValue);
     }
 }

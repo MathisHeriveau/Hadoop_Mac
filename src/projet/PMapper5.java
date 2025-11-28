@@ -16,24 +16,19 @@ import org.apache.hadoop.mapreduce.lib.input.MultipleInputs;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class IdentityComProdMapper extends Mapper<LongWritable, Text, Text, Text> {
+
+public class PMapper5 extends Mapper<LongWritable, Text, Text, Text> {
     private Text outKey = new Text();
-    private Text outValue = new Text();
+    private Text outValue = new Text("OK");
 
     @Override
-    protected void map(LongWritable key, Text value, Context context)
+    public void map(LongWritable key, Text value, Context context)
             throws IOException, InterruptedException {
-        String line = value.toString().trim();
-        if (line.isEmpty()) return;
 
-        String[] parts = line.split("\t", 2);
-        if (parts.length < 2) return;
+        String[] parts = value.toString().split("\t");
+        if (parts.length < 1) return;
 
-        String comNum = parts[0];
-        String prodLib = parts[1];
-
-        outKey.set(comNum);
-        outValue.set(prodLib);
+        outKey.set(parts[0]);  
         context.write(outKey, outValue);
     }
 }
